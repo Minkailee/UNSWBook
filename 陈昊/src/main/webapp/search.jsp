@@ -11,7 +11,7 @@
     {
 %>
         <div>
-            <form action="" method="post">
+            <form action="/SearchResult" method="post">
                 <label>Search for Name</label>
                 <input name="name_search" placeholder="Enter Name">
                 <button value="search">Search</button>
@@ -23,7 +23,7 @@
     {
 %>
         <div>
-            <form action="" method="post">
+            <form action="/SearchResult" method="post">
                 <label>Search for Name</label>
                 <input name="name_search" placeholder="Enter Name">
 
