@@ -22,7 +22,7 @@
 	    </div>
     </form>
     <div id="image" style="width:400px; height:300px; background:#CCCCCC; float:left;">
-        <img src="" />
+        <img src="" alt="No Image"/>
     </div>
 
 	<form name="form1" action="getData" method="post"> 

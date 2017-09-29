@@ -17,13 +17,14 @@
 <body>
 	<% 
 	ServletContext servData = getServletContext();    
-	String ImgPath = (String)request.getAttribute("ImgPath");
+	String ImgPath = (String)request.getAttribute("img");
 	String message = (String)request.getAttribute("message");
+	System.out.println(ImgPath);
 	
 	%>
 	<h2><%= message %></h2>
     <div id="image" style="width:400px; height:300px; background:#CCCCCC; float:left;">
-        <img src=<%= "uploadfile\1001.jpg" %> />
+        <img src=<%= ImgPath %> alt="No Image"/>
     </div>
     
 
