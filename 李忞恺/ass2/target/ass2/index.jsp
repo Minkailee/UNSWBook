@@ -1,4 +1,7 @@
 <!DOCTYPE HTML>
+<%@ page import="ass2.User_Databean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="ass2.Message_Databean" %>
 <!--
 Strata by HTML5 UP
 html5up.net | @ajlkn
@@ -24,7 +27,13 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     </style>
 </head>
 <body id="top">
-
+<%
+    ServletContext servletContext = getServletConfig().getServletContext();
+    ArrayList<User_Databean> userlist = (ArrayList<User_Databean>) servletContext.getAttribute("user_list");
+    ArrayList<Message_Databean> message_list = (ArrayList<Message_Databean>) servletContext.getAttribute("message_list");
+    String username = (String)servletContext.getAttribute("username");
+    User_Databean user = (User_Databean) servletContext.getAttribute("user");
+%>
 <!-- Header -->
 <header id="header">
     <div>
@@ -37,8 +46,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <br />
     <br />
     <div class="inner">
-        <a href="#" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
-        <h1><strong>I am Strata</strong>, a super simple<br />
+        <a href="01.jpg" class="image avatar"><img src="01.jpg" alt="" /></a>
+        <h1><strong>I am <%out.println(username);%></strong>, a super simple<br />
             responsive site template freebie<br />
             crafted by <a href="http://html5up.net">HTML5 UP</a>.</h1>
     </div>
@@ -48,20 +57,46 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 <div id="main">
     <!-- One -->
     <section id="one">
-        <header class="major">
-            <h2>Ipsum lorem dolor aliquam ante commodo<br />
-                magna sed accumsan arcu neque.</h2>
-        </header>
-        <p>Accumsan orci faucibus id eu lorem semper. Eu ac iaculis ac nunc nisi lorem vulputate lorem neque cubilia ac in adipiscing in curae lobortis tortor primis integer massa adipiscing id nisi accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque cubilia.</p>
-        <ul class="actions">
-            <li><a href="#" class="button">Learn More</a></li>
-        </ul>
+        <div >
+            <header class="major">
+                <h2><%out.println("Hello " + username);%></h2>
+            </header>
+        </div>
+        <p >See what is happening with your friends and share yours.</p>
+        <div >
+            <ul class="actions" align="center">
+                <li><a href="my_message.jsp" class="button">My Moments</a></li>
+                <li><a href="add_message.jsp" class="button">Create a new one</a></li>
+            </ul>
+        </div>
     </section>
 
     <!-- Two -->
     <section id="two">
-        <h2>Recent Work</h2>
+        <h2>Recent moments</h2>
         <div class="row">
+            <%
+                for (Message_Databean message:message_list){
+                    if(user.getFriend_list().contains(message.getPublisher_user_id()) || message.getPublisher_user_id() == user.getUser_id()) {
+                        out.println("<article class=\"6u 12u$(xsmall) work-item\">");
+                        out.println("<br><h3>" + message.getPublisher_user_id()+"</h3>");
+                        out.println("<br><p>" + message.getPublish_date()+"</p>");
+                        out.println("</article>");
+                        out.println("<article class=\"6u$ 12u$(xsmall) work-item\">");
+                        out.println("<br>" + message.getContent());
+                        out.println("<br>" + "<a href='" + message.getHref() + "'>" + message.getHref() + "</a>");
+//                        out.println(message.getLiked_by());
+//                        out.println(user.getUser_id());
+                        if(!message.getLiked_by().contains(user.getUser_id())){
+                            out.println("<br>" + "<a href='/send_email?value="+ message.getPublisher_user_id()+ "'class=\"button small icon fa-heart\">" + "Like" +"</a>");
+//                            ArrayList<Integer> temp = message.getLiked_by();
+//                            temp.add(user.getUser_id());
+//                            message.setLiked_by(temp);
+                        }
+                        out.println("</article>");
+                    }
+                }
+            %>
             <article class="6u 12u$(xsmall) work-item">
                 <a href="images/fulls/01.jpg" class="image fit thumb"><img src="images/thumbs/01.jpg" alt="" /></a>
                 <h3>Magna sed consequat tempus</h3>
