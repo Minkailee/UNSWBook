@@ -1,4 +1,4 @@
-package ass2;
+package myData;
 
 import java.sql.Connection;
 import java.sql.SQLException;

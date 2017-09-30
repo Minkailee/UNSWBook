@@ -1,4 +1,4 @@
-package myData;
+package ass2;
 
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class Student {
 		this.setGender(gender);
 		
 	}
-	// Êä³öÕ¹Ê¾
+	// ï¿½ï¿½ï¿½Õ¹Ê¾
 	public void showStudent(){
 		System.out.println(this.name);
 		System.out.println(this.email);
@@ -37,7 +37,7 @@ public class Student {
 		System.out.println(this.gender);
 		
 	}
-	// ÉèÖÃºÃÓÑÁĞ±í
+	// ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
 	public void setFriends(ArrayList<Integer> friends){
 		
 		this.friends = friends;
@@ -48,7 +48,7 @@ public class Student {
 		return this.friends;
 		
 	}
-	// ÉèÖÃÈÕÖ¾ÁĞ±í
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½Ğ±ï¿½
 	public void setPosts(ArrayList<Integer> posts){
 		
 		this.posts = posts;

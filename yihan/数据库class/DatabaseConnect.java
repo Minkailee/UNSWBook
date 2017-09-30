@@ -1,4 +1,4 @@
-package ass2;
+package myData;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Jdbc4
+// ÒÀÀµÏîÖÐÒªÌí¼ÓJdbc4
 
 public class DatabaseConnect {
 	
@@ -52,11 +52,11 @@ public class DatabaseConnect {
 				int index = rs.getInt("index");
 				
 				
-				// ï¿½ï¿½Ãºï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+				// »ñµÃºÃÓÑÁÐ±í
 				java.sql.Array obj = rs.getArray("friends");
 				Integer[] dataArray = (Integer[])obj.getArray();
 				ArrayList<Integer> friendList = new ArrayList<Integer>(Arrays.asList(dataArray));
-				// ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½Ð±ï¿½
+				// »ñµÃÈÕÖ¾ÁÐ±í
 				obj = rs.getArray("posts");
 				dataArray = (Integer[])obj.getArray();
 				ArrayList<Integer> postList = new ArrayList<Integer>(Arrays.asList(dataArray));
@@ -71,7 +71,7 @@ public class DatabaseConnect {
 				s.setFriends(friendList);
 				s.setPosts(postList);
 				s.setIndex(index);
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+				// Ìí¼ÓÐÂÓÃ»§µ½ÓÃ»§Êý×é
 				userList.add(s);
 				
 			}
@@ -84,7 +84,7 @@ public class DatabaseConnect {
 	 public static void saveUser(Connection c, Student s) throws SQLException{
 		 
 		 Statement stat = c.createStatement();
-		 // ï¿½ï¿½ï¿½ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½
+		 // »ñµÃÀúÊ·Ë÷Òý
 		 int student_index = getIndex(c)[0];
 		 student_index++;
 		 
@@ -102,9 +102,9 @@ public class DatabaseConnect {
 		 + "','" + sqlDate + "','" + s.getGender() + "','" + defaultFriendArr + "','" 
 		 + defaultPostArr + "'," + student_index + ");");
 		 
-		 //Îªï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 //ÎªÓÃ»§Ìí¼ÓË÷Òý
 		 s.setIndex(student_index);
-		 //ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 //Êý¾Ý¿âË÷Òý¸üÐÂ
 		 setIndex(c, 0, student_index++);
 		 
 		 stat.close();
@@ -171,11 +171,11 @@ public class DatabaseConnect {
 	 
 	 public static void uploadImg(Connection c, int index, String dataPath) throws Exception{
 		
-		// ï¿½ï¿½ï¿½æµ½ï¿½ï¿½ï¿½Ý¿ï¿½
+		// ´¢´æµ½Êý¾Ý¿â
 		Statement stat = c.createStatement();
         stat.executeUpdate("UPDATE public.\"Record_Index\" SET image_index = "
         				+ index + ";");
-        // ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
+        // ¸üÐÂÍ¼Æ¬Ë÷Òý
         stat.executeUpdate("INSERT INTO public.\"Image\"(index, address) VALUES (" 
         				+ index + ",'" + dataPath + "');");
         

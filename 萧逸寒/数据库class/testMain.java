@@ -1,23 +1,24 @@
-package myData;
+package ass2;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class testMain {
 
 	public static void main(String args[]){
 		
 		try {
-			Connection c = DatabaseConnect.connect("postgres", "Fresh-2017");
-			
-			java.util.Date dt = new java.util.Date();
-			System.out.println(dt);
-			
-			Student s = new Student("Mike Ky", "12344", "mike@unsw.edu.au", "0402002002", 
-					dt, "male");
-			
-			DatabaseConnect.saveUser(c, s);
-			//DatabaseConnect.updateUser(c, s);
+			Connection c = DatabaseConnect.connect("postgres", "z5095946");
+			int[] indexList = DatabaseConnect.getIndex(c);
+			System.out.println(Arrays.toString(indexList));
+
+			ArrayList<Student> userList = DatabaseConnect.getUser(c);
+			for(int i=0; i<userList.size(); i++){
+				userList.get(i).showStudent();
+			}
+
 			c.close();
 			
 		} catch (SQLException e) {

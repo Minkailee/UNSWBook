@@ -1,4 +1,4 @@
-package myData;
+package ass2;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.eclipse.jdt.core.compiler.InvalidInputException;
+
 
 /**
  * Servlet implementation class uploadImg
@@ -27,9 +27,9 @@ import org.eclipse.jdt.core.compiler.InvalidInputException;
 public class uploadImg extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	// ÉÏ´«ÎÄ¼þ´æ´¢Ä¿Â¼
+	// ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½æ´¢Ä¿Â¼
     private static final String UPLOAD_DIRECTORY = "uploadfile";
-    // ÉÏ´«ÅäÖÃ
+    // ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
     private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 1; // 1MB
     private static final int MAX_FILE_SIZE      = 1024 * 1024 * 2; // 2MB
     private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 5; // 5MB
@@ -47,70 +47,70 @@ public class uploadImg extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ¼ì²âÊÇ·ñÎª¶àÃ½ÌåÉÏ´«
+		// ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½Ã½ï¿½ï¿½ï¿½Ï´ï¿½
         if (!ServletFileUpload.isMultipartContent(request)) {
-            // Èç¹û²»ÊÇÔòÍ£Ö¹
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ö¹
             PrintWriter writer = response.getWriter();
-            writer.println("Error: ±íµ¥±ØÐë°üº¬ enctype=multipart/form-data");
+            writer.println("Error: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ enctype=multipart/form-data");
             writer.flush();
             return;
         }
-        // Á¬½ÓÊý¾Ý¿â
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
         Connection c = DatabaseConnect.connect("postgres", "Fresh-2017");
         
-        // ÅäÖÃÉÏ´«²ÎÊý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
         DiskFileItemFactory factory = new DiskFileItemFactory();
-        // ÉèÖÃÄÚ´æÁÙ½çÖµ - ³¬¹ýºó½«²úÉúÁÙÊ±ÎÄ¼þ²¢´æ´¢ÓÚÁÙÊ±Ä¿Â¼ÖÐ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ù½ï¿½Öµ - ï¿½ï¿½ï¿½ï¿½ï¿½ó½«²ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½Ê±Ä¿Â¼ï¿½ï¿½
         factory.setSizeThreshold(MEMORY_THRESHOLD);
-        // ÉèÖÃÁÙÊ±´æ´¢Ä¿Â¼
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½æ´¢Ä¿Â¼
         factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
-        // ¹¹ÔìÁÙÊ±Â·¾¶À´´æ´¢ÉÏ´«µÄÎÄ¼þ
-        // Õâ¸öÂ·¾¶Ïà¶Ôµ±Ç°Ó¦ÓÃµÄÄ¿Â¼
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Â·ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½Ï´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+        // ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Ôµï¿½Ç°Ó¦ï¿½Ãµï¿½Ä¿Â¼
         String uploadPath = getServletContext().getRealPath("./") + File.separator + UPLOAD_DIRECTORY;
         //String uploadPath = UPLOAD_DIRECTORY;
         System.out.println(uploadPath);
-        // Èç¹ûÄ¿Â¼²»´æÔÚÔò´´½¨
+        // ï¿½ï¿½ï¿½Ä¿Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò´´½ï¿½
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdir();
         }
         ServletFileUpload upload = new ServletFileUpload(factory);
-        // ÉèÖÃ×î´óÎÄ¼þÉÏ´«Öµ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï´ï¿½Öµ
         upload.setFileSizeMax(MAX_FILE_SIZE);
-        // ÉèÖÃ×î´óÇëÇóÖµ (°üº¬ÎÄ¼þºÍ±íµ¥Êý¾Ý)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ (ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½)
         upload.setSizeMax(MAX_REQUEST_SIZE); 
-        // ÖÐÎÄ´¦Àí
+        // ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
         upload.setHeaderEncoding("UTF-8"); 
 
-        // ½âÎöÌá½»À´µÄ±íµ¥
+        // ï¿½ï¿½ï¿½ï¿½ï¿½á½»ï¿½ï¿½ï¿½Ä±ï¿½
         try{
 			List<FileItem> formItems = upload.parseRequest(request);
 	        if (formItems != null && formItems.size() > 0) {
-		        // µü´ú±íµ¥Êý¾Ý
+		        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		        for (FileItem item : formItems) {
-		        	// ´¦Àí²»ÔÚ±íµ¥ÖÐµÄ×Ö¶Î
+		        	// ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½Ðµï¿½ï¿½Ö¶ï¿½
 				    if (!item.isFormField()) {
 				        String wholeName = new File(item.getName()).getName(); 
 				        if(wholeName.equals("")){
 				        	request.setAttribute("imgPath", "");
 					        request.setAttribute("message", "Empty file!");
-				        	throw new InvalidInputException("Empty file!");
+				        	throw new Exception("Empty file!");
 				        }
-				        // Í¼Æ¬ºó×ºÃû
+				        // Í¼Æ¬ï¿½ï¿½×ºï¿½ï¿½
 				    	String suffix = wholeName.substring(wholeName.lastIndexOf(".") + 1);
-				    	// »ñÈ¡Í¼Æ¬Ë÷Òý
+				    	// ï¿½ï¿½È¡Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
 						int image_index = DatabaseConnect.getIndex(c)[1];
 						
 				        String fileName = Integer.toString(image_index++) + "." + suffix;
 				        String filePath = uploadPath + File.separator + fileName;
 				        
-				        // Í¼Æ¬µÄÏà¶ÔÂ·¾¶£¬·Ç³£ÖØÒª£¬ÏÔÊ¾Í¼Æ¬Ê±ÒÀ¿¿´ËÂ·¾¶
+				        // Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ê¾Í¼Æ¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 				        String dataPath = UPLOAD_DIRECTORY + "\\" + fileName;
 				        File storeFile = new File(filePath);
-				        // ÔÚ¿ØÖÆÌ¨Êä³öÎÄ¼þµÄÉÏ´«Â·¾¶
+				        // ï¿½Ú¿ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ï´ï¿½Â·ï¿½ï¿½
 				        System.out.println(filePath);
 				        
-				        // ±£´æÎÄ¼þµ½Ó²ÅÌ
+				        // ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ó²ï¿½ï¿½
 				        item.write(storeFile);
 				       
 				        DatabaseConnect.uploadImg(c, image_index, dataPath);
@@ -127,7 +127,7 @@ public class uploadImg extends HttpServlet {
 	        
         }
       
-        // Ìø×ªµ½show
+        // ï¿½ï¿½×ªï¿½ï¿½show
         getServletContext().getRequestDispatcher("/show.jsp").forward(
                 request, response);
 	}

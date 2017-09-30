@@ -1,4 +1,4 @@
-package ass2;
+package myData;
 
 import java.io.IOException;
 import java.sql.Connection;
